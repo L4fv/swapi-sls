@@ -1,0 +1,4 @@
+module.exports.MSG_ERROR_11001 = 'SOME INPUT FAILED';
+module.exports.MSG_ERROR_11002 = 'SUCCESS';
+module.exports.MSG_ERROR_11003 = 'NOT FOUND RESOURCE';
+module.exports.MSG_ERROR_11004 = 'ERROR CRITICO';

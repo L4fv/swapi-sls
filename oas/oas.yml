@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: Star Wars API
+  version: 1.0.0
+paths:
+paths:
+  /api/v0.1/people/{idpeople}:
+    get:
+      summary: Get information about a specific character
+      parameters:
+        - in: path
+          name: idpeople
+          required: true
+          schema:
+            type: string
+          description: The ID of the character to retrieve
+      responses:
+        '200':
+          description: Information about the character
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "57f80255-c689-4afc-889d-bea712d74fd8"
+                  cumpleanios:
+                    type: string
+                    example: "57BBY"
+                  colorOjo:
+                    type: string
+                    example: "blue-gray"
+                  filmacion:
+                    type: array
+                    items:
+                      type: string
+                      example: "http://swapi.py4e.com/api/films/1/"
+                  genero:
+                    type: string
+                    example: "male"
+                  colorCabello:
+                    type: string
+                    example: "auburn, white"
+                  talla:
+                    type: string
+                    example: "182"
+                  lugarNacimiento:
+                    type: string
+                    example: "http://swapi.py4e.com/api/planets/20/"
+                  peso:
+                    type: string
+                    example: "77"
+                  nombre:
+                    type: string
+                    example: "Obi-Wan Kenobi"
+                  colorPiel:
+                    type: string
+                    example: "fair"
+                  creacion:
+                    type: string
+                    format: date-time
+                    example: "2014-12-10T16:16:29.192000Z"
+                  edicion:
+                    type: string
+                    format: date-time
+                    example: "2014-12-20T21:17:50.325000Z"
+                  especies:
+                    type: array
+                    items:
+                      type: string
+                      example: "http://swapi.py4e.com/api/species/1/"
+                  naveEstelar:
+                    type: array
+                    items:
+                      type: string
+                      example: "http://swapi.py4e.com/api/starships/48/"
+                  url:
+                    type: string
+                    example: "http://swapi.py4e.com/api/people/10/"
+                  vehiculos:
+                    type: array
+                    items:
+                      type: string
+                      example: "http://swapi.py4e.com/api/vehicles/38/"
+        '404':
+          description: Character not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Character not found
+  /api/v0.1/people/:
+    post:
+      summary: Add a new character to the Star Wars database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cumpleanios:
+                  type: string
+                colorOjo:
+                  type: string
+                filmacion:
+                  type: array
+                  items:
+                    type: string
+                genero:
+                  type: string
+                colorCabello:
+                  type: string
+                talla:
+                  type: string
+                lugarNacimiento:
+                  type: string
+                peso:
+                  type: string
+                nombre:
+                  type: string
+                colorPiel:
+                  type: string
+                creacion:
+                  type: string
+                  format: date-time
+                edicion:
+                  type: string
+                  format: date-time
+                especies:
+                  type: array
+                  items:
+                    type: string
+                naveEstelar:
+                  type: array
+                  items:
+                    type: string
+                url:
+                  type: string
+                vehiculos:
+                  type: array
+                  items:
+                    type: string
+                id:
+                  type: string
+                createAt:
+                  type: string
+                  format: date-time
+      responses:
+        '201':
+          description: Character added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Character added successfully
+        '500':
+          description: Error adding character
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: An error occurred while adding the character

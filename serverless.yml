@@ -1,0 +1,90 @@
+service: swapi-app-v4
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+package:
+  include:
+    - package.json
+    - package-lock.json
+    - serverless.yml
+    - src/**
+  exclude:
+    - node_modules/**
+    - oas/**
+    - owasp-data/**
+    - owasp-dependency-check/**
+    - .scannerwork/**
+    - temp/**
+    - src/__test__/**
+    - prettier.config.js
+    - .eslintrc.js
+    - coverage/**
+custom:
+  #documentation: ${file(serverless.doc.yml):documentation}
+  settings:
+    POST_TABLE: PEOPLE_DB
+    URL_STARTWARS: https://swapi.py4e.com/api
+	
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-2
+  environment: ${self:custom.settings}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.settings.POST_TABLE}"
+  include:
+    - /src/**
+
+functions:     
+  getPeopleV1:
+    handler: src/controllers/PeopleController.getPeopleCtrl
+    description: Funcion que trae la persona por ID
+    memorySize: 2048
+    events:
+      - http:
+          path: /api/v0.1/people/{id}
+          method: get
+          cors: true
+          #documentation: ${file(serverless.doc.yml):endpoints.getPersona}
+  # postPeopleV1:
+  #   handler: src/controllers/PeopleController.postPeopleCtrl
+  #   description: Funcion que agrega una persona a la BD
+  #   memorySize: 2048
+  #   events:
+  #     - http:
+  #         path: /api/v0.1/people/
+  #         method: post
+  #         cors: true
+  #         #documentation: ${file(serverless.doc.yml):endpoints.myFunc}     
+
+resources:
+  Resources:
+    PostsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: "id"
+            AttributeType: "S"
+        KeySchema:
+          - AttributeName: "id"
+            KeyType: "HASH"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.settings.POST_TABLE}
+#AKIAW5QN6YOCJ5BLHRML
+#mYOAuVb8JmgQAYXoNPEEblC6RHBQ+NaJt5R6VwKT
