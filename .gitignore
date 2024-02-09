@@ -1,10 +1,10 @@
 # package directories
-node_modules
+node_modules/
 jspm_packages
 .dynamodb/
 AWS
 # Serverless directories
-.serverless
+.serverless/
 
 # webpack directories
 .webpack
@@ -23,3 +23,4 @@ _warmup
 
 # serverless Export Env 
 .env
+artifacts
