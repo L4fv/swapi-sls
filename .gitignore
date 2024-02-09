@@ -1,0 +1,25 @@
+# package directories
+node_modules
+jspm_packages
+.dynamodb/
+AWS
+# Serverless directories
+.serverless
+
+# webpack directories
+.webpack
+
+# coverage directories
+coverage
+
+# env variables yml
+env.yml
+
+# openapi dpcumentation
+openapi.yml
+
+# serverless warmup directories
+_warmup
+
+# serverless Export Env 
+.env
