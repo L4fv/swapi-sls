@@ -85,5 +85,3 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.settings.POST_TABLE}
-#AKIAW5QN6YOCJ5BLHRML
-#mYOAuVb8JmgQAYXoNPEEblC6RHBQ+NaJt5R6VwKT
